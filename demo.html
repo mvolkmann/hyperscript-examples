@@ -1,0 +1,26 @@
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <!-- <script type="text/hyperscript">
+      set :dog to {name: "Comet", breed: "Whippet"}
+      set text to `${dog.name} is a ${dog.breed}`
+      alert(text)
+    </script> -->
+  </head>
+  <body>
+    <!-- <button _="on click set result to $x * $y then log result">Sum</button> -->
+    <button _="on click alert('got click')">Alert</button>
+    <button _="on click log 'got click'">Log</button>
+
+    <button
+      _="on click
+             get the (value of the next <input/>) as an Int
+             increment it
+             put it into the next <output/>"
+    >
+      Add 1 To :
+    </button>
+    <input type="number" />
+    <output></output>
+  </body>
+</html>
