@@ -4,32 +4,32 @@
     <link rel="stylesheet" href="score-keeper.css" />
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
     <script type="text/hyperscript">
-      def color(like)
-        if like return 'red' end
+      def color(team)
+        if team.like return 'red' end
         return 'white'
       end
 
-      def heart(like)
-        if like return '❤️' end
+      def heart(team)
+        if team.like return '❤️' end
         return '🤍'
       end
 
       def report()
-        set text to 'The score is tied.'
-        if $score1 > $score2 then set text to `The ${$team1} are winning.` end
-        if $score2 > $score1 then set text to `The ${$team2} are winning.` end
+        if $team1.score > $team2.score
+          set text to `The ${$team1.name} are winning.`
+        else if $team2.score > $team1.score
+          set text to `The ${$team2.name} are winning.`
+        else
+          set text to 'The score is tied.'
+        end
         set the textContent of #report to text
       end
     </script>
   </head>
   <body
     _="init
-    set $like1 to false
-    set $like2 to false
-    set $score1 to 25
-    set $score2 to 22
-    set $team1 to 'Chiefs'
-    set $team2 to '49ers'
+    set $team1 to {name: 'Chiefs', like: false, score: 25}
+    set $team2 to {name: '49ers', like: false, score: 22}
   "
   >
     <main class="column">
@@ -40,8 +40,8 @@
           <input
             type="text"
             _="
-              init set my value to $team1
-              on change set $team1 to my value
+              init set my value to $team1.name
+              on change set $team1.name to my value
             "
           />
         </label>
@@ -50,18 +50,18 @@
           <input
             type="number"
             _="
-              init set my value to $score1
+              init set my value to $team1.score
               on change
-                set $score1 to my value
+                set $team1.score to my value
                 report()
             "
           />
         </label>
         <button
           _="on click
-            set $like1 to not $like1
-            set *border-color of closest parent <section/> to color($like1)
-            set my textContent to heart($like1)
+            set $team1.like to not $team1.like
+            set *border-color of closest parent <section/> to color($team1)
+            set my textContent to heart($team1)
             "
         >
           🤍
@@ -74,8 +74,8 @@
           <input
             type="text"
             _="
-              init set my value to $team2
-              on change set $team2 to my value
+              init set my value to $team2.name
+              on change set $team2.name to my value
             "
           />
         </label>
@@ -84,18 +84,18 @@
           <input
             type="number"
             _="
-              init set my value to $score2
+              init set my value to $team2.score
               on change
-                set $score2 to my value
+                set $team2.score to my value
                 report()
             "
           />
         </label>
         <button
           _="on click
-            set $like2 to not $like2
-            set *border-color of closest parent <section/> to color($like2)
-            set my textContent to heart($like2)
+            set $team2.like to not $team2.like
+            set *border-color of closest parent <section/> to color($team2)
+            set my textContent to heart($team2)
             "
         >
           🤍
