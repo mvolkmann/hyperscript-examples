@@ -28,9 +28,9 @@
   </head>
   <body
     _="init
-    set $team1 to {name: 'Chiefs', like: false, score: 25}
-    set $team2 to {name: '49ers', like: false, score: 22}
-  "
+      set $team1 to {name: 'Chiefs', like: false, score: 25}
+      set $team2 to {name: '49ers', like: false, score: 22}
+    "
   >
     <main class="column">
       <div id="report" _="init report()"></div>
@@ -58,7 +58,7 @@
         <button
           _="on click
             set $team1.like to not $team1.like
-            set *border-color of closest parent <section/> to color($team1)
+            set *border-color of closest <section/> to color($team1)
             set my textContent to heart($team1)
             "
         >
@@ -90,7 +90,7 @@
         <button
           _="on click
             set $team2.like to not $team2.like
-            set *border-color of closest parent <section/> to color($team2)
+            set *border-color of closest <section/> to color($team2)
             set my textContent to heart($team2)
             "
         >
