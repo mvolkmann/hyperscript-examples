@@ -56,14 +56,14 @@
           />
         </label>
         <button
-          _="on click
-            set $team1.like to not $team1.like
-            set *border-color of closest <section/> to color($team1)
-            set my textContent to heart($team1)
-            "
-        >
-          🤍
-        </button>
+          _="
+            init set my textContent to heart($team1)
+            on click
+              set $team1.like to not $team1.like
+              set *border-color of closest <section/> to color($team1)
+              set my textContent to heart($team1)
+          "
+        ></button>
       </section>
       <section class="column team">
         <label>
@@ -87,14 +87,14 @@
           />
         </label>
         <button
-          _="on click
-            set $team2.like to not $team2.like
-            set *border-color of closest <section/> to color($team2)
-            set my textContent to heart($team2)
-            "
-        >
-          🤍
-        </button>
+          _="
+            init set my textContent to heart($team2)
+            on click
+              set $team2.like to not $team2.like
+              set *border-color of closest <section/> to color($team2)
+              set my textContent to heart($team2)
+          "
+        ></button>
       </section>
     </main>
   </body>
