@@ -4,6 +4,16 @@
     <link rel="stylesheet" href="score-keeper.css" />
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
     <script type="text/hyperscript">
+      def color(like)
+        if like return 'red' end
+        return 'white'
+      end
+
+      def heart(like)
+        if like return '❤️' end
+        return '🤍'
+      end
+
       def report()
         if $score1 > $score2 then return `The ${$team1} are winning.` end
         if $score2 > $score1 then return `The ${$team2} are winning.` end
@@ -11,7 +21,8 @@
       end
     </script>
   </head>
-  <body _="init
+  <body
+    _="init
     set $dislikeColor to 'white'
     set $likeColor to 'red'
     set $like1 to false
@@ -20,8 +31,8 @@
     set $score2 to 22
     set $team1 to 'Chiefs'
     set $team2 to '49ers'
-
-  ">
+  "
+  >
     <main class="column">
       <div id="report" _="init set my textContent to report()"></div>
       <section class="column team">
@@ -49,23 +60,21 @@
         </label>
         <button
           _="on click
-            log '$like1 =', $like1
             set $like1 to not $like1
-            log '$like1 =', $like1
             if $like1
-              log 'its true'
-              set my *border-color to likeColor
+              set *border-color of closest parent <section/> to 'red'
               set my textContent to '❤️'
             else
-              log 'its false'
-              set my *border-color to $dislikeColor
+              set *border-color of closest parent <section/> to 'white'
               set my textContent to '🤍'
             end
             "
-        >🤍</button>
+        >
+          🤍
+        </button>
       </section>
       <!-- We could avoid this repetition by creating a web component. -->
-      <section class="column team">
+      <!-- <section class="column team">
         <label>
           Team
           <input
@@ -92,14 +101,15 @@
           _="on click
             set $like2 to not $like2
             if $like2
-              set my *border-color to $likeColor
+              set parentElement *border-color to $likeColor
               set my textContent to '❤️'
             else
-              set my *border-color to $dislikeColor
+              set parentElement *border-color to $dislikeColor
               set my textContent to '🤍'
             end
             "
         >🤍</button>
+      </section> -->
     </main>
   </body>
 </html>
