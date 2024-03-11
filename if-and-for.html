@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script>
+      // _hyperscript cannot access variables declared with const or let.
+      var colors = [
+        { name: "blue", primary: true },
+        { name: "green", primary: false },
+        { name: "orange", primary: false },
+        { name: "purple", primary: false },
+        { name: "red", primary: true },
+        { name: "yellow", primary: true },
+      ];
+    </script>
+  </head>
+  <body style="background-color: gray">
+    <h1>Primary Colors</h1>
+    <div
+      _="init
+      for color in colors
+        if color.primary
+          make a <div/>
+          set its *color to color.name
+          set its *fontSize to 2rem
+          set its textContent to color.name
+          put it at the end of me
+        end
+      end
+    "
+    ></div>
+  </body>
+</html>

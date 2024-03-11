@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script>
+      // _hyperscript cannot access variables declared with const or let.
+      var j = 1;
+    </script>
+  </head>
+  <body>
+    See output in the DevTools console.
+
+    <!-- This demonstates accessing a JavaScript variable. -->
+    <div _="init log 'j =', j">logged JS variable</div>
+
+    <!-- These demonstrate defining a global-scoped variable
+         and accessing it in multiple elements. -->
+    <div _="init set global g to 3">set g</div>
+    <div _="init log '$g =', $g">logged g</div>
+    <div _="init set my.textContent to g"></div>
+
+    <!-- This demonstrates setting an element-scoped variable
+         and accessing it in other features. -->
+    <div
+      _="
+      init set :e to 4 then log 'init :e =', :e
+      on click log 'click :e =', :e -- can access because it's element-scoped
+      on mouseover log 'mouseover :e =', :e
+    "
+    >
+      mouseover and click for element-scoped variable
+    </div>
+
+    <!-- This demonstrates setting a local-scoped variable
+         and not being able to access it in other features. -->
+    <div
+      _="
+      init set l to 5 then log 'init l =', l
+      on click log 'click l =', l -- undefined because it's local-scoped
+    "
+    >
+      click for local-scoped variable
+    </div>
+  </body>
+</html>

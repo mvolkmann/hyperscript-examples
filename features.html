@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  </head>
+  <body>
+    See output in the DevTools console.
+
+    <!-- This demonstrates defining multiple features in one _ value. -->
+    <div
+      _="
+      init log 'initialized'
+      on click log 'got click'
+      on mouseover log 'got mouseover'
+    "
+    >
+      mouseover and click to execute features
+    </div>
+
+    <!-- This demonstrates using the "js" feature. -->
+    <div _="js console.log('ran JS code')">ran JS code</div>
+  </body>
+</html>
