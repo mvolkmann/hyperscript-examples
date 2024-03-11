@@ -3,49 +3,103 @@
     <title>_hyperscript Score Keeper</title>
     <link rel="stylesheet" href="score-keeper.css" />
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-    <script>
-      var data = {
-        dislikeColor: "white",
-        likeColor: "red",
-        score1: 25,
-        score2: 22,
-        team1: "Chiefs",
-        team2: "49ers",
-        // This is like a computed property.
-        report() {
-          const s1 = Number(this.score1);
-          const s2 = Number(this.score2);
-          return s1 > s2
-            ? `The ${this.team1} are winning.`
-            : s2 > s1
-            ? `The ${this.team2} are winning.`
-            : "The score is tied.";
-        },
-      };
+    <script type="text/hyperscript">
+      def report()
+        if $score1 > $score2 then return `The ${$team1} are winning.` end
+        if $score2 > $score1 then return `The ${$team2} are winning.` end
+        return 'The score is tied.'
+      end
     </script>
   </head>
-  <body>
+  <body _="init
+    set $dislikeColor to 'white'
+    set $likeColor to 'red'
+    set $like1 to false
+    set $like2 to false
+    set $score1 to 25
+    set $score2 to 22
+    set $team1 to 'Chiefs'
+    set $team2 to '49ers'
+
+  ">
     <main class="column">
-      <div id="report" x-text="report"></div>
-      <section
-        class="column team"
-        :style="`border-color: ${like ? likeColor : dislikeColor}`"
-        x-data="{like: false}"
-      >
-        <label>Team <input type="text" x-model="team1" /></label>
-        <label>Score <input type="number" x-model="score1" /></label>
-        <button @click="like = !like" x-text="like ? '❤️' : '🤍'"></button>
+      <div id="report" _="init set my textContent to report()"></div>
+      <section class="column team">
+        <label>
+          Team
+          <input
+            type="text"
+            _="
+              init set my value to $team1
+              on change set $team1 to my value
+            "
+          />
+        </label>
+        <label>
+          Score
+          <input
+            type="number"
+            _="
+              init set my value to $score1
+              on change
+                set $score1 to my value
+                set the textContent of #report to report()
+            "
+          />
+        </label>
+        <button
+          _="on click
+            log '$like1 =', $like1
+            set $like1 to not $like1
+            log '$like1 =', $like1
+            if $like1
+              log 'its true'
+              set my *border-color to likeColor
+              set my textContent to '❤️'
+            else
+              log 'its false'
+              set my *border-color to $dislikeColor
+              set my textContent to '🤍'
+            end
+            "
+        >🤍</button>
       </section>
       <!-- We could avoid this repetition by creating a web component. -->
-      <section
-        class="column team"
-        :style="`border-color: ${like ? likeColor : dislikeColor}`"
-        x-data="{like: false}"
-      >
-        <label>Team <input type="text" x-model="team2" /></label>
-        <label>Score <input type="number" x-model="score2" /></label>
-        <button @click="like = !like" x-text="like ? '❤️' : '🤍'"></button>
-      </section>
+      <section class="column team">
+        <label>
+          Team
+          <input
+            type="text"
+            _="
+              init set my value to $team2
+              on change set $team2 to my value
+            "
+          />
+        </label>
+        <label>
+          Score
+          <input
+            type="number"
+            _="
+              init set my value to $score2
+              on change
+                set $score2 to my value
+                set the textContent of #report to report()
+            "
+          />
+        </label>
+        <button
+          _="on click
+            set $like2 to not $like2
+            if $like2
+              set my *border-color to $likeColor
+              set my textContent to '❤️'
+            else
+              set my *border-color to $dislikeColor
+              set my textContent to '🤍'
+            end
+            "
+        >🤍</button>
     </main>
   </body>
 </html>
