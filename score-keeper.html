@@ -41,7 +41,7 @@
             type="text"
             _="
               init set my value to $team1.name
-              on change set $team1.name to my value
+              on change set $team1.name to my value then report()
             "
           />
         </label>
@@ -51,9 +51,7 @@
             type="number"
             _="
               init set my value to $team1.score
-              on change
-                set $team1.score to my value
-                report()
+              on change set $team1.score to my value then report()
             "
           />
         </label>
@@ -75,7 +73,7 @@
             type="text"
             _="
               init set my value to $team2.name
-              on change set $team2.name to my value
+              on change set $team2.name to my value then report()
             "
           />
         </label>
@@ -85,9 +83,7 @@
             type="number"
             _="
               init set my value to $team2.score
-              on change
-                set $team2.score to my value
-                report()
+              on change set $team2.score to my value then report()
             "
           />
         </label>
