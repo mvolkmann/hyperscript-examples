@@ -15,9 +15,10 @@
       end
 
       def report()
-        if $score1 > $score2 then return `The ${$team1} are winning.` end
-        if $score2 > $score1 then return `The ${$team2} are winning.` end
-        return 'The score is tied.'
+        set text to 'The score is tied.'
+        if $score1 > $score2 then set text to `The ${$team1} are winning.` end
+        if $score2 > $score1 then set text to `The ${$team2} are winning.` end
+        set the textContent of #report to text
       end
     </script>
   </head>
@@ -34,7 +35,7 @@
   "
   >
     <main class="column">
-      <div id="report" _="init set my textContent to report()"></div>
+      <div id="report" _="init report()"></div>
       <section class="column team">
         <label>
           Team
@@ -54,27 +55,22 @@
               init set my value to $score1
               on change
                 set $score1 to my value
-                set the textContent of #report to report()
+                report()
             "
           />
         </label>
         <button
           _="on click
             set $like1 to not $like1
-            if $like1
-              set *border-color of closest parent <section/> to 'red'
-              set my textContent to '❤️'
-            else
-              set *border-color of closest parent <section/> to 'white'
-              set my textContent to '🤍'
-            end
+            set *border-color of closest parent <section/> to color($like1)
+            set my textContent to heart($like1)
             "
         >
           🤍
         </button>
       </section>
       <!-- We could avoid this repetition by creating a web component. -->
-      <!-- <section class="column team">
+      <section class="column team">
         <label>
           Team
           <input
@@ -93,23 +89,20 @@
               init set my value to $score2
               on change
                 set $score2 to my value
-                set the textContent of #report to report()
+                report()
             "
           />
         </label>
         <button
           _="on click
             set $like2 to not $like2
-            if $like2
-              set parentElement *border-color to $likeColor
-              set my textContent to '❤️'
-            else
-              set parentElement *border-color to $dislikeColor
-              set my textContent to '🤍'
-            end
+            set *border-color of closest parent <section/> to color($like2)
+            set my textContent to heart($like2)
             "
-        >🤍</button>
-      </section> -->
+        >
+          🤍
+        </button>
+      </section>
     </main>
   </body>
 </html>
