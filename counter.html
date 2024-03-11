@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  </head>
+  <body>
+    <div style="display: flex; gap: 1rem">
+      <!-- "if" doesn't require "end" if it is the last command. -->
+      <button
+        disabled
+        _="on click
+          remove @disabled from the next <button/>
+          decrement #count.textContent
+          if it is 0 then add @disabled to me
+        "
+      >
+        -
+      </button>
+      <span id="count">0</span>
+      <button
+        _="on click
+          remove @disabled from the previous <button/>
+          increment #count.textContent
+          if it is 10 then add @disabled to me
+        "
+      >
+        +
+      </button>
+    </div>
+  </body>
+</html>
