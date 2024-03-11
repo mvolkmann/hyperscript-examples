@@ -15,9 +15,9 @@
       end
 
       def report()
-        if $team1.score > $team2.score
+        if the score of $team1 is greater than the score of $team2
           set text to `The ${$team1.name} are winning.`
-        else if $team2.score > $team1.score
+        else if the score of $team2 is greater than the score of $team1
           set text to `The ${$team2.name} are winning.`
         else
           set text to 'The score is tied.'
