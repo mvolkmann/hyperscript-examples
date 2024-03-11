@@ -4,12 +4,11 @@
   </head>
   <body>
     <div style="display: flex; gap: 1rem">
-      <!-- "if" doesn't require "end" if it is the last command. -->
       <button
         disabled
         _="on click
           remove @disabled from the next <button/>
-          decrement #count.textContent
+          decrement the textContent of #count
           if it is 0 then add @disabled to me
         "
       >
@@ -19,7 +18,7 @@
       <button
         _="on click
           remove @disabled from the previous <button/>
-          increment #count.textContent
+          increment the textContent of #count
           if it is 10 then add @disabled to me
         "
       >
