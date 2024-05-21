@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <style>
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script>
+      function debugForm() {
+        alert('hello');
+        const form = htmx.find('#register-form');
+        console.log('form values are', htmx.values(form));
+      }
+    </script>
+  </head>
+  <body>
+    <form id="register-form" hx-post="/register" hx-target="#status">
+      <label>
+        Name
+        <input type="text" id="name" name="name" />
+      </label>
+      <label>
+        Age
+        <input type="number" id="age" name="age" />
+      </label>
+      <button>Submit</button>
+      <button type="button" hx-on:click="debugForm()">Debug Form</button>
+    </form>
+  </body>
+</html>
